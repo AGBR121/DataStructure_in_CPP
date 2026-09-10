@@ -1,5 +1,5 @@
-#include<iostream>
-#include<cassert>
+#include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -8,102 +8,102 @@ template<typename T>
 class List
 {
 private:
-    //Node tendra el elemento y el puntero al siguiente dato
+    // Node will hold the element and the pointer to the next data
     class Node{
         private:
         T data_; 
         Node* next_;
         public:
-        //constructores
+        // constructors
         Node(){
-            data_ = T(); //dato vacio
-            next_ = nullptr; //puntero nulo
+            data_ = T(); // empty data
+            next_ = nullptr; // null pointer
         }
         Node(const T& element){
-            data_ = element; //dato con un elemento
-            next_ = nullptr; //puntero nulo
+            data_ = element; // data with an element
+            next_ = nullptr; // null pointer
         }
-        //cambiar la dirección de memoria a otro nodo
+        // change the memory address to another node
         void setNext(Node* next){
             next_ = next;
         }
-        Node* getNext() { return next_; } //Devolver el puntero al valor siguiente
-        T& getData() { return data_; } //Devolver el dato
-        const T& getData() const { return data_; } //Devolver el dato sin modificarlo
+        Node* getNext() { return next_; } // Return the pointer to the next value
+        T& getData() { return data_; } // Return the data
+        const T& getData() const { return data_; } // Return the data without modifying it
     };
-    Node* first_; //Nodo del primer elemento
-    Node* last_; //nodo del ultimo elemento
-    unsigned int size_; //Tamaño de la lista
+    Node* first_; // Node of the first element
+    Node* last_; // node of the last element
+    unsigned int size_; // Size of the list
 public:
-    //Constructor lista
+    // List constructor
     List(){
         first_ = nullptr;
         last_ = nullptr;
         size_ = 0;
     }
-    //Devolver el tamaño de la lista
+    // Return the size of the list
     unsigned int size() const { return size_; }
-    //Devolver true si la lista esta vacía
+    // Return true if the list is empty
     bool empty() const { return size_ == 0; }
-    //push_front
+    // push_front
     void push_front(const T& element){
-        Node* n = new Node(element); //nuevo elemento
-        n->setNext(first_); //puntero del siguiente del primer elemento = puntero del exprimer elemento
-        first_ = n; //n nuevo first_
+        Node* n = new Node(element); // new element
+        n->setNext(first_); // the next pointer of the new node = pointer of the former first element
+        first_ = n; // n is the new first_
         if(size_ == 0){
-            last_ = n; //si la lista estaba vacía, liast_ tambien apunta a n
+            last_ = n; // if the list was empty, last_ also points to n
         }
         size_++;
     }
 
     void push_back(const T& element){
-        Node* n = new Node(element); //nuevo elemento
+        Node* n = new Node(element); // new element
         if (empty()) {
-            first_ = last_ = n; //si esta vacio, first y last apuntaran al mismo elemento
+            first_ = last_ = n; // if it's empty, first and last will point to the same element
         } else {
-            last_->setNext(n); //el anterior last ahora tendra en su valor de next el puntero del nuevo last
-            last_ = n; //apuntar al nuevo last
+            last_->setNext(n); // the previous last now has the pointer of the new last as its next value
+            last_ = n; // point to the new last
         }
         size_++;
     }
 
     void pop_front(){
-        if(empty()){ return; } //si la lista esta vacia, no haga nada
-        Node* temp = first_; //apuntador nodo temporal del primer elemento
-        first_ = first_->getNext(); //first ahora apuntara al siguiente elemento
-        delete temp; //liberamos la memoria del nodo
+        if(empty()){ return; } // if the list is empty, do nothing
+        Node* temp = first_; // temporary node pointer of the first element
+        first_ = first_->getNext(); // first now points to the next element
+        delete temp; // free the node's memory
         size_--;
 
-        if (size_ == 0) { last_ = nullptr; } //si ya no hay nada, last no apunta a nada
+        if (size_ == 0) { last_ = nullptr; } // if there's nothing left, last points to nothing
     }
 
     void pop_back(){
-        if(empty()){ return; } //si esta vacío, no hace nada
-        if(first_ == last_){ //si first y last apuntan a lo mismo
-            delete first_; //liberamos first
-            first_ = last_ = nullptr; //ambos no van a apuntar
+        if(empty()){ return; } // if it's empty, do nothing
+        if(first_ == last_){ // if first and last point to the same thing
+            delete first_; // free first
+            first_ = last_ = nullptr; // neither will point to anything
         }else{
-            Node* current = first_; //nodo temporal que recorrerá hasta el penultimo elemento
+            Node* current = first_; // temporary node that will traverse to the second-to-last element
             while (current->getNext() != last_) {
-                current = current->getNext(); //obtenemos la direccion de memoria del ultimo elemento
+                current = current->getNext(); // get the memory address of the last element
             }
-            delete last_; //liberamos el ultimo
-            last_ = current; //el nuevo ultimo será el penultimo
-            last_->setNext(nullptr); //el apuntador que tenia el penultimo cambia a nulo
+            delete last_; // free the last one
+            last_ = current; // the new last will be the second-to-last
+            last_->setNext(nullptr); // the pointer the second-to-last had changes to null
         }
         size_--;
     }
 
     T& at(unsigned int pos){
-        assert(pos < size_ && pos >=0); //error si la posicion supera el tamaño
-        Node* current = first_; //nodo que recorrerá hasta llegar a la posicion
+        assert(pos < size_ && pos >=0); // error if the position exceeds the size
+        Node* current = first_; // node that will traverse until reaching the position
         for (unsigned int i = 0; i < pos; i++) {
             current = current->getNext();
         }
-        return current->getData(); //devolvemos el dato encontrado
+        return current->getData(); // return the found data
     }
 
-    //lo mismo que arriba pero sin permitir un cambio en el dato
+    // same as above but without allowing the data to be changed
     const T& at(unsigned int pos) const{
         assert(pos < size_ && pos>=0);
         Node* current = first_;
@@ -117,23 +117,23 @@ public:
         assert(index <= size_);
     
         if (index == 0) { 
-            push_front(element); //si el indice es 0, solo hacemos push_front
+            push_front(element); // if the index is 0, just do push_front
             return;
         }
     
         if (index == size_) { 
-            push_back(element); //si el indice es el ultimo dato, hacemos push_back
+            push_back(element); // if the index is the last data, do push_back
             return;
         }
 
-        Node* current = first_; //apuntador al nodo para que recorra la lista hasta llegar al indice
+        Node* current = first_; // node pointer that will traverse the list until reaching the index
         for (unsigned int i = 0; i < index - 1; i++) {
             current = current->getNext();
         }
     
-        Node* newNode = new Node(element); //nuevo nodo en el arreglo que tendrá el elemento
-        newNode->setNext(current->getNext()); //el nuevo nodo apuntará a donde apuntaba el indice
-        current->setNext(newNode); //el anterior nodo ahora apunta al nuevo nodo
+        Node* newNode = new Node(element); // new node in the array that will hold the element
+        newNode->setNext(current->getNext()); // the new node will point to where the index used to point
+        current->setNext(newNode); // the previous node now points to the new node
         
         size_++;
     }
@@ -141,112 +141,112 @@ public:
         assert(index < size_ || index > size_);
     
         if (index == 0) { 
-            pop_front(); //si el indice es el primer dato, hacemos pop_front
+            pop_front(); // if the index is the first data, do pop_front
             return;
         }
         if(index == size_){
-            pop_back(); //si el indice es el ultimo dato, hacemos pop_back
+            pop_back(); // if the index is the last data, do pop_back
             return;
         }
-        Node* temp = first_; //apuntador de nodo que recorrerá la lista hasta llegar al indice -1
+        Node* temp = first_; // node pointer that will traverse the list until reaching index - 1
         for (unsigned int i = 0; i < index - 1; i++) {
             temp = temp->getNext();
         }
 
-        Node* toDelete = temp->getNext(); //apuntar al nodo siguiente que será el que eliminaremos
-        temp->setNext(toDelete->getNext()); //el nodo anterior al de eliminar ahora apunta al 
-                                            //siguiente  del nodo a eliminar
+        Node* toDelete = temp->getNext(); // point to the next node, which will be the one we delete
+        temp->setNext(toDelete->getNext()); // the node before the one to delete now points to the
+                                            // node after the one to delete
     
-        delete toDelete; //liberar el nodo
+        delete toDelete; // free the node
         
         size_--;
     }
     int find(const T& element) const {
-        Node* temp = first_; //apuntar a los nodos hasta encontrar el elemento
+        Node* temp = first_; // traverse the nodes until finding the element
         int index = 0;
     
         while (temp != nullptr) {
             if (temp->getData() == element) {
-                return index; //retornamos la posicion
+                return index; // return the position
             }
             temp = temp->getNext();
             index++;
         }
         
-        return -1; //no lo encontró
+        return -1; // not found
     }
 
-    // Ordena la lista utilizando el algoritmo Merge Sort de forma recursiva.
+    // Sorts the list using the Merge Sort algorithm recursively.
     Node* MergeSort(Node* firstElement){
-        // Caso base: si la lista está vacía o solo tiene un elemento, se devuelve tal cual.
+        // Base case: if the list is empty or has only one element, return it as is.
         if (!firstElement || !firstElement->getNext()){ 
             return firstElement; 
         }
 
-        // Se obtiene el nodo medio de la lista.
+        // Get the middle node of the list.
         Node* middle = getMiddle(firstElement);
-        // Se obtiene la segunda mitad de la lista.
+        // Get the second half of the list.
         Node* secondMiddle = middle->getNext();
-        // Se separan ambas mitades.
+        // Split both halves apart.
         middle->setNext(nullptr);
 
-        // Se ordenan las dos mitades recursivamente y luego se combinan.
+        // Recursively sort both halves and then merge them.
         return Merge(MergeSort(firstElement), MergeSort(secondMiddle));
 }
 
-    // Encuentra el nodo medio de la lista utilizando el método de "puntero lento y rápido".
+    // Finds the middle node of the list using the "slow and fast pointer" method.
     Node* getMiddle(Node* firstElement){
-        // Si la lista está vacía, se devuelve tal cual.
+        // If the list is empty, return it as is.
         if(!firstElement){ return firstElement; }
 
-        // Se inicializan dos punteros, uno lento (avanza de uno en uno) y otro rápido (avanza de dos en dos).
+        // Initialize two pointers, one slow (advances by one) and one fast (advances by two).
         Node* slow = firstElement, *fast = firstElement->getNext();
         
-        // Se recorre la lista hasta que el puntero rápido llegue al final.
+        // Traverse the list until the fast pointer reaches the end.
         while(fast && fast->getNext()){
-            slow = slow->getNext();        // Avanza de uno en uno.
-            fast = fast->getNext()->getNext(); // Avanza de dos en dos.
+            slow = slow->getNext();        // Advances by one.
+            fast = fast->getNext()->getNext(); // Advances by two.
         }
         
-        // Se devuelve el puntero lento, que estará en la mitad de la lista.
+        // Return the slow pointer, which will be in the middle of the list.
         return slow;
     }
 
-    // Une dos listas ordenadas en una sola lista ordenada.
+    // Merges two sorted lists into a single sorted list.
     Node* Merge(Node* left, Node* right){
-        // Si una de las listas está vacía, se devuelve la otra.
+        // If one of the lists is empty, return the other one.
         if(!left){ return right; }
         if(!right){ return left; }
 
-        // Se compara el valor de los nodos para ordenar correctamente.
+        // Compare the nodes' values to sort them correctly.
         if (left->getData() < right->getData()) {
-            // Si el nodo izquierdo es menor, se enlaza con la fusión de los siguientes nodos.
+            // If the left node is smaller, link it with the merge of the remaining nodes.
             left->setNext(Merge(left->getNext(), right));
             return left;
         } else {
-            // Si el nodo derecho es menor o igual, se enlaza con la fusión de los siguientes nodos.
+            // If the right node is smaller or equal, link it with the merge of the remaining nodes.
             right->setNext(Merge(left, right->getNext()));
             return right;
         }
     }
 
-    // Llama a MergeSort para ordenar la lista.
+    // Calls MergeSort to sort the list.
     void sort(){
         first_ = MergeSort(first_);
     }
 
-    // Imprime la lista en consola.
+    // Prints the list to the console.
     void print() const {
-        // Si la lista está vacía, no se imprime nada.
+        // If the list is empty, print nothing.
         if (!first_) { return; }
 
-        // Se recorre la lista nodo por nodo.
+        // Traverse the list node by node.
         Node* current = first_; 
         while (current) {
-            cout << current->getData() << " "; // Se imprime el dato del nodo actual.
-            current = current->getNext(); // Se avanza al siguiente nodo.
+            cout << current->getData() << " "; // Print the current node's data.
+            current = current->getNext(); // Move to the next node.
         }
-        cout << endl; // Se imprime un salto de línea al final.
+        cout << endl; // Print a newline at the end.
     }
 
 };
