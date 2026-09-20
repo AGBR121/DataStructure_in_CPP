@@ -23,23 +23,23 @@ Vector<int> removeDuplicates(const Vector<int>& vector){
     return withoutDuplicates; 
 }
 
-// Función que recibe dos vectores ordenados y los mezcla en un nuevo vector ordenado
+// Function that receives two sorted vectors and merges them into a new sorted vector
 template<typename T>
 Vector<T> mergeSortedVectors(Vector<T>& vector1, Vector<T>& vector2){
-    if(!vector1.size()){ //Si el vector 1 esta vacio, devolvemos el 2
+    if(!vector1.size()){ //If vector 1 is empty, return vector 2
         return vector2;
     }
     if(!vector2.size()){
-        return vector1; //Si el vector 2 esta vacío, devolvemos el 1
+        return vector1; //If vector 2 is empty, return vector 1
     }
     if(!vector1.size() && !vector2.size()){
-        return Vector<T>(); //Si ambos estan vacios, devolvemos un vector vacío
+        return Vector<T>(); //If both are empty, return an empty vector
     }
-    Vector<T> mergedVector; //Vector donde se guardaran los elementos ordenados
-    unsigned int i = 0; //Indice para recorrer el vector 1
-    unsigned int j = 0;//Indice para recorrer el vector 2
+    Vector<T> mergedVector; //Vector where the sorted elements will be stored
+    unsigned int i = 0; //Index to traverse vector 1
+    unsigned int j = 0;//Index to traverse vector 2
 
-    while(i < vector1.size() && j < vector2.size()){ //Insertar los elementos en orden
+    while(i < vector1.size() && j < vector2.size()){ //Insert the elements in order
         if(vector1[i] < vector2[j]){
             mergedVector.push_back(vector1[i]);
             i++;
@@ -48,50 +48,50 @@ Vector<T> mergeSortedVectors(Vector<T>& vector1, Vector<T>& vector2){
             j++;
         }
     }
-    while(i < vector1.size()){ //Verificar si quedaron elementos en el vector 1
+    while(i < vector1.size()){ //Check if there are remaining elements in vector 1
         mergedVector.push_back(vector1[i]);
         i++;
     }
-    while(j < vector2.size()){//Verificar si quedaron elementos en el vector 2
+    while(j < vector2.size()){//Check if there are remaining elements in vector 2
         mergedVector.push_back(vector2[j]);
         j++;
     }
-    return mergedVector; //Devolver el vector ordenado
+    return mergedVector; //Return the sorted vector
 }
 
-// Función de prueba para probar la clase Vector y sus metodos
+// Test function to test the Vector class and its methods
 void Prueba(){
-    Vector<int> x(10,0); // Crea un vector de 10 elementos inicializados en 0
+    Vector<int> x(10,0); // Creates a vector of 10 elements initialized to 0
     cout << "Size of x: " << x.size() << endl;
     cout << "values of x: " ;
     x.print();
     
-    x.at(5) = 100; // Modifica el valor en la posición 5
+    x.at(5) = 100; // Modifies the value at position 5
     cout << "position using at: " << x.at(5) << endl;
     cout << "position using []: " << x[5] << endl;
     x.print();
     
-    x.push_back(10); // Agrega un 10 al final
-    x.push_front(50); // Agrega un 50 al inicio
+    x.push_back(10); // Adds a 10 at the end
+    x.push_front(50); // Adds a 50 at the beginning
     cout << "use push_front and push_back" << endl;
     x.print();
     
-    x.pop_front(); // Elimina el primer elemento
-    x.pop_back(); // Elimina el último elemento
+    x.pop_front(); // Removes the first element
+    x.pop_back(); // Removes the last element
     cout << "use pop_front and pop_back" << endl;
     x.print();
-    x.insert(8, 2); //Agrega un 2 en la posicion 8
+    x.insert(8, 2); //Adds a 2 at position 8
     cout << "insert(8,2)"<<endl;
     x.print();
-    cout << "erase(8)" << endl; //elimina lo que haya en la posicion 8
+    cout << "erase(8)" << endl; //erases whatever is at position 8
     x.erase(8);
     x.print();
-    cout << x.empty() << endl; // Verifica si el vector está vacío
+    cout << x.empty() << endl; // Checks if the vector is empty
     return;
 }
 
 
-//Funcion para probar la funcion removeDuplicates
+//Function to test the removeDuplicates function
 void RemovingDuplicates(){
     Vector<int> numbers = {1, 2, 2, 3, 4, 4, 5};
     Vector<int> uniqueNumbers = removeDuplicates(numbers);
@@ -112,7 +112,7 @@ void RemovingDuplicates(){
 }
 
 
-//Funcion para probar la funcion mergeSortedVectors
+//Function to test the mergeSortedVectors function
 void MergeSortVectorsPrueba(){
     Vector<int> vector1 = {1, 3, 5};
     Vector<int> vector2 = {2, 4, 6};
