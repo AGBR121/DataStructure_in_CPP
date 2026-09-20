@@ -1,35 +1,35 @@
 #include<iostream>
 #include<cassert>
 
-#include "Vector.h"
+#include "vector.h"
 
 using namespace std;
 
 template<typename T>
 class Stack{
     private:
-    //Tendrá un vector de tipo T
+    //It will have a vector of type T
     Vector<T> data;
 
     public:
-    //Constructor por defecto
+    //Default constructor
     Stack() {}
 
-    // Métodos del stack
+    // Stack methods
 
-    //Método para agregar un elemento al stack
+    //Method to add an element to the stack
     void push(const T& element) { data.push_back(element); }
-    //Método para eliminar un elemento del stack
+    //Method to remove an element from the stack
     void pop() { assert(!data.empty()); data.pop_back(); }
-    //Método para obtener el elemento en la cima del stack sin modificarlo (top o peek, son lo mismo)
+    //Method to get the element at the top of the stack without modifying it (top or peek are the same)
     const T& top() const { assert(!data.empty()); return data.at(data.size()-1); }
-    //Método para obtener el elemento en la cima del stack y modificarlo
+    //Method to get the element at the top of the stack and modify it
     T& top() { assert(!data.empty()); return data.at(data.size()-1); }
-    //Método para verificar si el stack está vacío
+    //Method to check if the stack is empty
     bool empty() const { return data.empty(); }
-    //Método para obtener el tamaño del stack
+    //Method to get the size of the stack
     unsigned int size() const { return data.size(); }
-    //Método para imprimir los datos del stack
+    //Method to print the stack data
     void print() { 
         assert(!data.empty());
         for(int i = data.size()-1; i>=0; i--){
