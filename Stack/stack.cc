@@ -1,7 +1,7 @@
 #include<iostream>
 #include<cassert>
 
-#include "vector.h"
+#include "../Vector/vector.h"
 
 using namespace std;
 
